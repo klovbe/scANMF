@@ -41,8 +41,7 @@ model_sample <- function(K, Kn_vec, Ndiff, Nsame, logMean, logSd, ZeroRate, sigm
   Te <- Z %*% cbind(Ediff, t(Esame))
   Te[Te > 0] <- Te[Te > 0] + rnorm(sum(Te > 0), 0, Te[Te > 0] * sigmahetero + sigmahomo)
   Te[Te <= 0] <- rnorm(sum(Te <= 0), 0, 1) - 1.5
-  Te[Te <= 0] <- 0
-  
+  Te[Te <= 0] <- 0  
   De <- t(Te)
   
   # Marker gene matrix
