@@ -1,11 +1,11 @@
-K <- 4# 细胞类型数
+K <- 4
 Kn_vec<-c(300,300,300,300)
-Ndiff <- 20 # 差异表达基因数
-Nsame <- 100 # 相同表达基因数
-logMean <- 1 # 均值
-logSd <- 0.5 # 标准差
-ZeroRate <- 0.1 # 零值比例
-type <- "marker" # 差异表达类型
+Ndiff <- 20 
+Nsame <- 100 
+logMean <- 1 
+logSd <- 0.5 
+ZeroRate <- 0.1 
+type <- "marker" 
 sigmahetero<-0.2
 sigmahomo<-0.1
 a <- 0.1 # 标签保留比例。后续换成0.2，0.3，重复下列步骤
@@ -85,7 +85,7 @@ for (b in b_values) {
     total <- sum(support)
     weighted_f1 <- sum(f1_score * support) / total
     
-    # 存储每组结果
+
     all_metrics[[i]] <- list(
       accuracy = accuracy,
       macro_f1 = mean_f1_score,
@@ -98,11 +98,10 @@ for (b in b_values) {
     cat("Macro F1:", mean_f1_score, "\n")
     cat("Weighted F1:", weighted_f1, "\n\n")
   }
-  
-  # 存入总结果
+
   all_metrics_all[[as.character(b)]] <- all_metrics
 }
-#平均指标
+
 for (b in names(all_metrics_all)) {
   accuracies <- sapply(all_metrics_all[[b]], function(x) x$accuracy)
   macro_f1s <- sapply(all_metrics_all[[b]], function(x) x$macro_f1)
@@ -113,4 +112,4 @@ for (b in names(all_metrics_all)) {
   cat("Mean Macro F1:", mean(macro_f1s), "\n")
   cat("Mean Weighted F1:", mean(weighted_f1s), "\n\n")
 }
-#error_rate相同
+
