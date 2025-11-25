@@ -1,6 +1,6 @@
 library(tidyverse)
 
-# ---- 1. 原始数据（你已有） ----
+
 df <- tribble(
   ~label_ret, ~type,         ~noise, ~mean,   ~sd,
   
@@ -32,12 +32,11 @@ df <- tribble(
   "30% label retained", "Marker noise",  60, 0.9451, 0.0284
 )
 
-# ---- 2. 使用 SE 替代 SD ----
+
 df <- df %>% mutate(se = sd / sqrt(20))
 
-# ---- 3. 绘图 ----
 p <- ggplot(df, aes(x = noise, y = mean, color = type)) +
-  geom_line(aes(linetype = type), linewidth = 0.7) +   # PDF 中线条更细更好看
+  geom_line(aes(linetype = type), linewidth = 0.7) +  
   geom_point(size = 2) +
   geom_errorbar(
     aes(
@@ -64,9 +63,9 @@ p <- ggplot(df, aes(x = noise, y = mean, color = type)) +
     color = NULL,
     linetype = NULL
   ) +
-  theme_bw(base_size = 13) +     # 全局字体全部设为 13
+  theme_bw(base_size = 13) +     
   theme(
-    strip.background = element_rect(fill = "white", color = "black"), # 保留白框标题
+    strip.background = element_rect(fill = "white", color = "black"), 
     strip.text = element_text(size = 13, face = "bold"),
     
     axis.text = element_text(size = 13),
@@ -81,8 +80,7 @@ p <- ggplot(df, aes(x = noise, y = mean, color = type)) +
   )
 
 
-p
-# 输出到 PDF（矢量图）
+
 pdf("noise_plot.pdf", width = 7, height = 4, useDingbats = FALSE)
 
 print(p)
